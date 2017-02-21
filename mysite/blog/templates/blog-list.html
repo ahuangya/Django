@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <link rel="icon" href = "{% static "image/lufei.jpeg" %}" type=image/x-icon>
+    <title>My Blogs</title>
+    <style>
+        blog {
+            padding: 20px 0px;
+        }
+        blog .info span {
+            padding-right: 10px;
+        }
+        blog .summary {
+            padding-top: 20px;
+        }
+        #bg img {
+            position:absolute;
+            left:0;
+            right:0;
+            bottom:0;
+            margin:auto;
+            width:100%;
+            height:100%;
+            z-index:-1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="bg">
+            {% load staticfiles %}
+            <img src="{% static 'image/back.jpg' %}" alt="">
+        </div>
+
+        <div id="header" style="text-align:center">
+            <h1 style="margin-bottom:0;">MyBlogs</h1></div>
+        {% for blog in blogs %}
+        <div class="blog">
+            <div class="title">
+                <a href="{% url 'blog_get_detail' blog.id%}"><h2>{{ blog.title }}</h2></a>
+            </div>
+        <div class="info">
+            <span class="author" style="color: #FF00FF">{{ blog.author }}</span>
+            <span class="created" style="color: #228B22">{{ blog.timestamp|date:"Y-m-d H:i" }}</span>
+        </div>
+        <div class="summary">
+            {{ blog.content|truncatewords:100 }}
+        </div>
+    </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
